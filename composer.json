@@ -1,18 +1,19 @@
 {
-    "name": "wcs/kata-exemple",
+    "name": "root/kata-starter",
     "require-dev": {
         "phpunit/phpunit": "^5.5"
     },
     "authors": [
         {
-            "name": "2binfree",
-            "email": "laurent.aubertin@free.fr"
+            "name": "AymenMech",
+            "email": "aymen.mechiche@gmail.com"
         }
     ],
     "require": {},
+
     "autoload": {
-	"psr-4": {
-	    "wcs\\": "src/"
+  	"psr-4": {
+    	"wcs\\": "src/"
+  	}
 	}
-    }
 }

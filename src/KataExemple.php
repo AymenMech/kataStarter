@@ -1,119 +1,79 @@
 <?php
-
 namespace wcs; // or your own namespace
-
 class KataExemple
 {
     public static function action($value)
     {
-        $array = array(0, 15, 30, 40);
-        $ptj1 = 0;
-        $ptj2 = 0;
-        $jeuJ1 = 0;
-        $jeuJ2 = 0;
-        $setJ1 = 0;
-        $setJ2 = 0;
-        $adv1 = false;
-        $adv2 = false;
+        $array = array(0, 15 , 30 , 40 , "Advantage");
+        $J1 = new Joueur;
+        $J2 = new Joueur;
+
+
         for ($i = 0; $i < strlen($value); $i++) {
             if ($value[$i] == 1) {
-                $ptj1++;
-                if ($ptj1 >= 4 ) {
-                    if ($ptj2 <= 3){
-                    $jeuJ1++;
-                    $ptj1 = 0;
-                    $ptj2 = 0;
-                        if ($jeuJ1 >= 6 && ($jeuJ1 - $jeuJ2) >= 2 ){
-                            $setJ1++;
-                            $jeuJ1 = 0;
-                            $jeuJ2 = 0;
-                        }
-                        elseif ($jeuJ1 == 7){
-                            $setJ1++;
-                            $jeuJ1 = 0;
-                            $jeuJ2 = 0;
-                        }
+                $J1->point++;
+                if (($J1->point == 4 && $J2->point <=2) || $J1->point == 5 && $J2->point = 3) {
+                    $J1->setJeu($J1, $J2);
+                    if ($J1->jeu >= 6 && ($J1->jeu - $J2->jeu >= 2) ){
+                        $J1->setSet($J1,$J2);
                     }
-                    elseif ($ptj2 >= 4 && $adv1 = false && $adv2 = false){
-                        $adv1 = true;
-
+                    elseif ($J1->jeu == 7){
+                        $J1->setSet($J1,$J2);
                     }
-                    elseif ($ptj2 >= 4 && $adv1 = false && $adv2 = true){
-                        $adv2 = false;
-
-                    }
-                    elseif ($ptj2 >= 4 && $adv1 = true && $adv2 = false){
-
-                        $jeuJ1++;
-                        $ptj1 = 0;
-                        $ptj2 = 0;
-                        $adv1 = false;
-                            if ($jeuJ1 >= 6 && ($jeuJ1 - $jeuJ2 >= 2) ){
-                                $setJ1++;
-                                $jeuJ1 = 0;
-                                $jeuJ2 = 0;
-                            }
-                            elseif ($jeuJ1 == 7){
-                                $setJ1++;
-                                $jeuJ1 = 0;
-                                $jeuJ2 = 0;
-                            }
-
-                    }
+                } elseif ($J1->point == 4 && $J2->point == 4){
+                    $J2->point = 3;
+                    $J1->point = 3;
                 }
 
-
             } else {
-                $ptj2++;
-                if ($ptj2 >= 4 ) {
-                    if ($ptj1 <= 3){
-                        $jeuJ2++;
-                        $ptj1 = 0;
-                        $ptj2 = 0;
-                            if ($jeuJ2 >= 6 && ($jeuJ2 - $jeuJ1 >= 2) ){
-                                $setJ2++;
-                                $jeuJ1 = 0;
-                                $jeuJ2 = 0;
-                            }
-                            elseif ($jeuJ2 == 7){
-                                $setJ2++;
-                                $jeuJ1 = 0;
-                                $jeuJ2 = 0;
-                            }
+                $J2->point++;
+                if (($J2->point == 4 && $J1->point <=2) || $J2->point == 5 && $J1->point = 3) {
+                    $J2->setJeu($J1, $J2);
+                    if ($J2->jeu >= 6 && ($J2->jeu - $J1->jeu >= 2) ){
+                        $J2->setSet($J1,$J2);
                     }
-                    elseif ($ptj1 >= 4 && $adv1 = false && $adv2 = false){
-                        $adv2 = true;
-
+                    elseif ($J2->jeu == 7){
+                        $J2->setSet($J1,$J2);
                     }
-                    elseif ($ptj1 >= 4 && $adv1 = true && $adv2 = false){
-                        $adv1 = false;
 
-                    }elseif ($ptj1 >= 4 && $adv1 = false && $adv2 = true){
-
-                        $jeuJ2++;
-                        $ptj1 = 0;
-                        $ptj2 = 0;
-                        $adv1 = false;
-                            if ($jeuJ2 >= 6 && ($jeuJ2 - $jeuJ1 >= 2) ){
-                                $setJ2++;
-                                $jeuJ1 = 0;
-                                $jeuJ2 = 0;
-                            }
-                            elseif ($jeuJ2 == 7){
-                                $setJ2++;
-                                $jeuJ1 = 0;
-                                $jeuJ2 = 0;
-                            }
-
-
-                    }
+                } elseif ($J2->point == 4 && $J1->point == 4){
+                    $J2->point = 3;
+                    $J1->point = 3;
                 }
             }
         }
-        $J1tennis = $array[$ptj1];
-        $J2tennis = $array[$ptj2];
-        return "$setJ1/$setJ2 - $jeuJ1/$jeuJ2 - $J1tennis/$J2tennis";
+
+        $J1->ptennis = $array[$J1->point];
+        $J2->ptennis = $array[$J2->point];
+        return "$J1->set/$J2->set - $J1->jeu/$J2->jeu - $J1->ptennis/$J2->ptennis";
+
+
     }
 }
 
+class Joueur
+{
+    public $point = 0;
+    public $ptennis = 0;
+    public $jeu = 0;
+    public $set = 0;
 
+    /**
+     * @return int
+     */
+    public function setJeu($j1, $j2)
+    {
+        $this->jeu++;
+        $j1->point = 0;
+        $j2->point = 0;
+    }
+
+    public function setSet($j1, $j2)
+    {
+        $this->set++;
+        $j1->jeu = 0;
+        $j2->jeu = 0;
+        $j1->point = 0;
+        $j2->point = 0;
+    }
+}
