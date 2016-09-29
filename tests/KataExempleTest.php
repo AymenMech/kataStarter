@@ -4,6 +4,9 @@
   {
       public function testAction()
       {
+          $this->assertEquals("la sonmai prés de la ainefont", \wcs\KataExemple::verlan("la maison prés de la fontaine"));
+
+
           $this->assertEquals("0/0 - 0/0 - 30/30", \wcs\KataExemple::action("1212"));
           $this->assertEquals("0/0 - 0/0 - Advantage/40", \wcs\KataExemple::action("1121221"));
           $this->assertEquals("0/0 - 0/0 - 40/40", \wcs\KataExemple::action("121212121212"));

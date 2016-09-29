@@ -2,6 +2,24 @@
 namespace wcs; // or your own namespace
 class KataExemple
 {
+    public static function verlan($value)
+    {
+        $words = explode(" ", $value);
+        $sentence = '';
+        $vowels = ['a','e','i','o','u'];
+        foreach ($words as $word){
+            if (strlen($word) >= 6){
+                $halfword = round(strlen($word)/2);
+                $wordsplit = str_split($word,$halfword);
+                $sentence .= ' ' . $wordsplit[1] . $wordsplit[0];
+            }   else {
+                $sentence .= ' ' .$word;
+            }
+    }
+            return trim($sentence);
+    }
+
+
     public static function action($value)
     {
         $array = array(0, 15 , 30 , 40 , "Advantage");
@@ -76,4 +94,9 @@ class Joueur
         $j1->point = 0;
         $j2->point = 0;
     }
+    public function match(){
+
+    }
 }
+
+
