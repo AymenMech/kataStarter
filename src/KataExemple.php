@@ -2,6 +2,20 @@
 namespace wcs; // or your own namespace
 class KataExemple
 {
+    public static function wordStat($value)
+    {
+        $array = array("totalMot" => 0, "moyenneLettreParMot" => 0);
+        $mots = explode(" ", $value);
+        $count = 0;
+        $totalMot = count($mots);
+            foreach ($mots as $mot) {
+                $count += strlen($mot);
+            }
+
+
+        return array("totalMot" => $totalMot, "moyenneLettreParMot" => round($count/$totalMot));
+    }
+
     public static function verlan($value)
     {
         $words = explode(" ", $value);

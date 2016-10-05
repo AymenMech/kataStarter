@@ -4,6 +4,10 @@
   {
       public function testAction()
       {
+
+          $this->assertEquals(array("totalMot" => 6, "moyenneLettreParMot" => 4), \wcs\KataExemple::wordStat("la maison prés de la fontaine"));
+          $this->assertEquals(array("totalMot" => 10, "moyenneLettreParMot" => 4), \wcs\KataExemple::wordStat("La valeur de sortie est un tableau au format suivant"));
+
           $this->assertEquals("la sonmai prés de la ainefont", \wcs\KataExemple::verlan("la maison prés de la fontaine"));
 
 
